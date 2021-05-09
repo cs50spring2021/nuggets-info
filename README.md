@@ -28,7 +28,7 @@ All members of the team should then clone the team's new repository, which inclu
 
 ## Submissions
 
-*Due dates are provided on Canvas.*
+*Deadlines are provided on the [course website](https://www.cs.dartmouth.edu/~cs50/schedule.html).*
 
 ### Design spec
 
