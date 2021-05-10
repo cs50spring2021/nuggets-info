@@ -149,6 +149,8 @@ To create a Wiki page for your Sprint Retrospective, follow the steps listed bel
 
 # GitHub Project Board
 
+[:arrow_forward: Video demo by Taylor Hardin](https://dartmouth.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=96060b11-898b-4296-a856-ad2401472f32)
+
 You will be using GitHub Project Board to manage your Sprint Backlog. Your Sprint Backlog is a list of items that your team needs to complete in order to meet the Sprint Goal. Each Sprint Backlog item will be represented by a GitHub Issue, and the set of issues that makes up your Sprint Backlog will be organized inside of your Project Board. Your Project Board will have four columns for organization that represent different stages of completeness:
 
 * ***To Do*** newly created issues (backlog items) are automatically placed in this column. Issues should remain in this column until some team member begins work on it.
