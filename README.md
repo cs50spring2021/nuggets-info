@@ -491,3 +491,12 @@ ln -s ~/cs50-dev/shared/nuggets/linux prof
 prof/padmap maps/draft.txt > maps/new.txt
 ```
 
+#### Bot mode
+
+Our client (`player`) has a special capability: it can run as a *bot*, that is, as an automated player.
+This capability goes 'beyond the spec' but I found it useful for testing the server, and also a lot of fun to watch.
+If you give the name `bot` as the `playerName`, it will periodically send random movement keystrokes to the server; you can just sit and watch the bot play the game!
+If you give the name `botbg` as the `playerName`, it will play as a bot but *not display anything*, which makes it suitable to run in the background.
+I demonstrate both types of bot in the video below. 
+
+[:arrow_forward: Video demo of 26 bots and a spectator](https://dartmouth.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a04097c4-1b8e-4147-b525-ad26017d839f)
