@@ -5,10 +5,13 @@ A multi-player exploration game, *Nuggets*, in which a game server maintains all
 The object of the game is to collect more gold nuggets than any other player.
 The game ends when all gold nuggets have been collected by some player.
 
+* The *server* is a program that implements all game logic.
+* The *client* is a program that allows a human to join the game as either *player* or *spectator*.
+* A game includes zero to *MaxPlayers* players, and zero or one spectators.
+* Thus a game involves one server and [0..MaxPlayers+1] clients.
 * Game play occurs in a set of interconnected *rooms* and *passages*, laid out on a rectangular grid of *gridpoints*, as defined by a [map](#maps).
 * Gridpoints within a room or passage are called *spots*.  A *room spot* can be occupied by a player or a gold pile, or be empty.  A *passage spot* can be occupied by a player or be empty.
 * At game start time, `GoldTotal` nuggets are randomly dropped in a random number of random-sized piles, each pile at some spot in a room.  Gold nuggets are indistinguishable; a pile contains at least one nugget.
-* There are zero to `MaxPlayers` players, and zero or one *spectators*.  Thus there may be as many as `MaxPlayers+1` *clients* talking with the one *server*.
 * A new *player* is dropped into a randomly selected empty room spot.
 * A new player initially has 0 nuggets in its *purse*.
 * A player can *see* the spots and boundaries that are [*visible*](#visibility) from its current location.
@@ -51,7 +54,7 @@ The server ***shall***
 4. Initialize the game by dropping at least `GoldMinNumPiles` and at most `GoldMaxNumPiles` gold piles on random room spots; each pile shall have a random number of nuggets.
 5. Initialize the network and announce the port number.
 6. Wait for messages from *clients* (players or spectators).
-7. Accept up to `MaxPlayers` players; if a player exits or quits the game, it can neither rejoin nor be replaced.
+7. Accept up to *MaxPlayers* players; if a player exits or quits the game, it can neither rejoin nor be replaced.
 8. Accept up to 1 spectator; if a new spectator joins while one is active, the server shall tell the current spectator to quit, and the server shall then forget that current spectator.
 7. React to each type of inbound message as described in the [protocol](#network-protocol) below.
 8. Handle errors, including malloc failures, gracefully.
@@ -68,16 +71,17 @@ a typical approach would be to log to stderr and thus usage could be:
 
 	./server 2>server.log map.txt
 
-## Player
+## Client
 
 	./player hostname port [playername]
 
-The player ***shall***
+The client allows a human to join the game as *player* or *spectator*.
+The client ***shall***
 
 1. start from the commandline of the form above; thus the first argument is the hostname or IP address where the server is running, and the second argument is the port number on which the server expects messages; the third (optional) argument determines whether to join as a *player* or *spectator*.
 2. Verify its arguments; if error, provide a useful error message and exit non-zero.
-2. If the `playername` argument is provided, the user joins as a *player* and can interactively play the game.
-3. If the `playername` argument is not provided, the user joins as a view-only *spectator*.
+2. If the `playername` argument is provided, the client joins as a *player* and can interactively play the game.
+3. If the `playername` argument is not provided, the client joins as a view-only *spectator*.
 4. Initialize the display.
 5. Initialize the network and join the game with a `PLAY` or `SPECTATE` message accordingly.
 6. Upon receipt of a `GRID` message, ensure the display is large enough for the grid (it should be *NR+1* x *NC+1* for best results).
@@ -90,19 +94,19 @@ The player ***shall***
 9. Display a brief note on the status line if an unknown or malformed message arrives from the server.
 10. Print a Game-over summary and exit, as noted in the [protocol](#network-protocol) below.
 
-The player ***shall not*** print anything to stdout other than what is required for game play.
+The client ***shall not*** print anything to stdout other than what is required for game play.
 
-The player ***should*** log useful information that can be saved in a logfile;
+The client ***should*** log useful information that can be saved in a logfile;
 a typical approach would be to log to stderr and thus usage could be:
 
 	./player 2>player.log hostname port playername
 	./player 2>spectator.log hostname port
 
-### Player interface
+### Client interface
 
 The display shall consist of *NR+1* rows and *NC* columns.
-The player program shall ensure the window is large enough: if not, it shall inform the user about the necessary window size, and wait for the user to enlarge the window.
-(If the user later shrinks the window during game play, your player need not discover this change nor deal with it.)
+The client program shall ensure the window is large enough: if not, it shall inform the user about the necessary window size, and wait for the user to enlarge the window.
+(If the user later shrinks the window during game play, your client need not discover this change nor deal with it.)
 
 The top line of the display shall provide game status; for a player, it should look like this:
 
@@ -173,7 +177,7 @@ A *map* defines the set of rooms and passages in which the game is played.
 * The *map* is laid out on a *grid*.
 * The grid is *NR* rows by *NC* columns; thus there are *NR x NC* *gridpoints*.
 * The grid will fit in a `DISPLAY` message; thus, *NR x NC + 10 < message_MaxBytes*.
-* The grid has enough spots to accommodate `MaxPlayers` players and `GoldMaxNumPiles` gold piles.
+* The grid has enough spots to accommodate *MaxPlayers* players and `GoldMaxNumPiles` gold piles.
 * A *room* is a [simple rectilinear polygon](https://en.wikipedia.org/wiki/Rectilinear_polygon).
 * A *spot* is a gridpoint in the interior of a room or along a passage.
 * A room is defined by its *boundaries*.
@@ -429,7 +433,7 @@ Message types are in ALL CAPS.
 
 When the server starts, it shall open a new endpoint and announce its port.
 When the client starts, it shall send a message to the hostname (or address) and port number where the server awaits.
-There are two types of client: *players* and *spectators*; let's look at the messages each can send, then at the messages a server can send.
+The client can join in one of two roles: *players* and *spectators*; let's look at the messages each can send, then at the messages a server can send.
 
 ### Player to server
 
@@ -439,7 +443,7 @@ When a *player* client starts, it shall send a message to the server:
 
 Everything after the `PLAY` and one space is captured as the player's "real name" (free text, optionally including spaces).
 
-If there are already `MaxPlayers` clients,  the server shall respond with
+If there are already *MaxPlayers* players,  the server shall respond with
 
 	QUIT Game is full: no more players can join.
 
@@ -552,7 +556,7 @@ C        230 Carol
 ### Malformed messages
 
 Any message not following the above protocol, *exactly*, is malformatted.
-Both player and server shall be robust in the face of malformatted messages - they should not crash, exit, or proceed incorrectly.
+Both client and server shall be robust in the face of malformatted messages - they should not crash, exit, or proceed incorrectly.
 At a minimum they shall log an error and ignore the message.
 
 The server *may* send, in response to the client,
@@ -565,7 +569,7 @@ The client shall present this text to its user on the display's status line.
 
 ### Misordered messages
 
-The server and player *may* strive to be robust in the face of missing, misordered, or repeated messages.
+The server and client *may* strive to be robust in the face of missing, misordered, or repeated messages.
 
 (A stronger spec would *require* robustness, but for this project we'll give you some slack.)
 

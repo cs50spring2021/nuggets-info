@@ -65,7 +65,7 @@ Be prepared to answer questions and receive feedback.
 
 ### Implementation spec
 
-You must submit an Implementation spec (written in Markdown): a summary of your approach to implementing the server (and player, for teams of 4) and any modules, providing the prototype and brief description of each function, and specifics of the data structure(s) you plan to use.
+You must submit an Implementation spec (written in Markdown): a summary of your approach to implementing the server (and client, for teams of 4) and any modules, providing the prototype and brief description of each function, and specifics of the data structure(s) you plan to use.
 You do not need to describe the `support` library or, if you use it, `libcs50`.
 
 Recall the lecture unit about Design; it has a section about [Implementation specs](https://www.cs.dartmouth.edu/~cs50/Lectures/units/design.html#implementation-spec).
@@ -97,7 +97,7 @@ No extensions will be permitted.
 
  1. Your code should be well-organized with sensible filenames and subdirectories.
 
- 2. There shall be a Makefile for each library (if any), and a top-level Makefile to build the player and server and (recursively) any necessary libraries.
+ 2. There shall be a Makefile for each library (if any), and a top-level Makefile to build the client and server and (recursively) any necessary libraries.
 We must be able to `make clean` and `make all` from the top-level directory and result in a complete compilation.
 
  3. All code must compile (with no warnings) on the CS50 Linux servers with the usual CFLAGS.
@@ -171,7 +171,7 @@ Consider these thoughts while you develop your design spec.
 
 The game is played on an *NR x NC* grid of gridpoints.
 How will you represent the grid?
-How will the player and/or server use the grid?
+How will the client and/or server use the grid?
 What functions must a "grid" support?
 This is a critical design decision, and one I spent a lot of time considering before I started writing code.
 I started one approach to the representation and implementation of a grid, and later switched to another approach... but because I'd wrapped the entire approach in an abstract `grid` module, *none of the code that used the grid needed to change.*
@@ -216,9 +216,9 @@ But I've not had the need, or the time, to do so.
 
 ### Keyboard input
 
-The player needs to read and react to keystrokes immediately... but all of the code we've seen in CS50 cannot read any input from stdin (when it is a keyboard) until the user hits Return.
+The client needs to read and react to keystrokes immediately... but all of the code we've seen in CS50 cannot read any input from stdin (when it is a keyboard) until the user hits Return.
 In other words, the keyboard is normally in "line-oriented mode".
-Your player program needs it in "character-oriented mode", technically called "cbreak" mode.
+Your client program needs it in "character-oriented mode", technically called "cbreak" mode.
 
 No problem.
 The *ncurses* library provides that feature ([see below about ncurses](#ncurses)).
@@ -237,7 +237,7 @@ I cannot emphasize this point enough: write, test, and commit a minimal program,
 (Indeed, when following the git-flow approach, your *main* branch should always contain a clean, submittable, runnable program.)
 My first server did little more than parse its arguments and exit zero on success, non-zero with error messages on an invalid command-line. *Commit.*
 Then I added code to initialize a grid, print it out, and exit. *Commit.*
-Then I added a loop to read a line from stdin, and handle it as if it were a message from a player; at first, it could handle only "QUIT". *Commit.*
+Then I added a loop to read a line from stdin, and handle it as if it were a message from a client; at first, it could handle only "QUIT". *Commit.*
 Later I added networking.
 And so forth.
 
@@ -295,10 +295,10 @@ Insert calls to `log_x()` at critical points in your code, and you'll be able to
 ### Unit testing
 
 As I noted above, the [grid](#grid) is an incredibly important design and implementation choice.
-I wrote my grid module first, before writing a single line of code for the server or player.
+I wrote my grid module first, before writing a single line of code for the server or client.
 And, I wrote a glass-box unit test for the grid module in parallel with writing the module itself.
 This decision took time - but saved me a ton of time later.
-Once I had a solid, working grid module I was able to write the server and player without having to think about how the grid worked (or whether it worked!).
+Once I had a solid, working grid module I was able to write the server and client without having to think about how the grid worked (or whether it worked!).
 Sure, I occasionally had to go back and extend my grid module with a new parameter here or a new function there, to better fit the needs of the server, but I was able to incrementally test those additions with my unit test.
 
 Consider the same approach for any unit you develop.
@@ -311,9 +311,9 @@ Declare them as `static const ...` to ensure they cannot be changed, and ensure 
 
 There are, however, some occasions when a judicious use of global *variables* can make the code cleaner and easier to read.
 
-I found it useful to declare a *single* global variable, a `struct` called `game`, in my player and in my server.
+I found it useful to declare a *single* global variable, a `struct` called `game`, in my client and in my server.
 (Again, I declared it `static` so it would be global to this file, but not visible to other source files.)
-I could thus refer to the members of that struct in various points throughout the server or player code, e.g., `game.goldRemaining`.
+I could thus refer to the members of that struct in various points throughout the server or client code, e.g., `game.goldRemaining`.
 The presence of `game.` makes it clear to the reader that this variable is global, not some variable local to the function.
 
 The alternative - and actually, my initial approach - was to allocate a `struct` called `game` in my `main()` function, and then pass it around through every function call in the program.
@@ -333,12 +333,12 @@ It enables applications to send and receive network messages and also handle key
 
 ### nCurses
 
-The player shall use the *ncurses* library to arrange its interactive display; see the [unit about ncurses](https://www.cs.dartmouth.edu/~cs50/Lectures/units/ncurses).
+The client shall use the *ncurses* library to arrange its interactive display; see the [unit about ncurses](https://www.cs.dartmouth.edu/~cs50/Lectures/units/ncurses).
 Note:
 
 * ncurses has ["still reachable" memory leaks](https://invisible-island.net/ncurses/ncurses.faq.html#config_leaks); ignore them.
-* if the user starts with a window too small for the grid size, your player shall prompt the user to increase the window to a size big enough for the grid - repeatedly if necessary.
-* if the user later shrinks the window too small for the grid, your player need not discover this change nor deal with it.
+* if the user starts with a window too small for the grid size, your client shall prompt the user to increase the window to a size big enough for the grid - repeatedly if necessary.
+* if the user later shrinks the window too small for the grid, your client need not discover this change nor deal with it.
 
 
 ### Parsing messages
@@ -462,7 +462,9 @@ These reports come from the excellent [cloc](https://github.com/AlDanial/cloc) t
 ### Testing and tools
 
 You may run your `player` or `server` on any Linux server in the [Thayer collection](https://www.cs.dartmouth.edu/~cs50/Logistics/systems.html#linux), simply by giving the server's hostname on the player's commandline.
+<!--
 Run a server on `babylon5` and a player on `plank`, and you're playing over the real network!
+-->
 
 We installed four programs in the shared directory `~/cs50-dev/shared/nuggets/`:
 
