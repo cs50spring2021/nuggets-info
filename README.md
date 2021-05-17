@@ -152,12 +152,9 @@ Your final project will be graded out of 100 as follows:
  * **15**: Final presentation
  * **10**: Scrum and Git practices
  * **30**: Functionally correct and complete
- * **-10** (off the top) if any segfault occurs during our testing
  * **-10** (off the top) ***per hour*** if submitted late
 
-<!-- postpone until it is more clear
 ***See the [grading rubric](rubric.md).***
--->
 
 Furthermore, immediately after the project you will each complete a confidential online survey in which you comment on your contribution to the project, and the contributions from members of your group; the Professor uses the information in that survey to set part of your overall course grade (recall the [grading policy](https://www.cs.dartmouth.edu/%7Ecs50/Logistics/#grades)).
 
