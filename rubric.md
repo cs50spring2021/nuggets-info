@@ -67,7 +67,7 @@ We grade this section out of 50 points.
 ## Implementation spec (15%)
 
 We asked for "a summary of your approach to implementing the server (and client, for teams of 4) and any modules, providing the prototype and brief description of each function, and specifics of the data structure(s) you plan to use."
-The "implementation spec should describe all of your implementation's units (other than those we provide), provide pseudo code for each unit's functions (including prototypes and their parameters), and describe every major data structure," and 
+The "implementation spec should describe all of your implementation's units (other than those we provide), provide pseudo code for each unit's functions (including prototypes and their parameters), and describe every major data structure".
 
 We're looking for a clear, modular structure with well-chosen data structures, function names, and function interfaces.
 
