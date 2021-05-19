@@ -90,7 +90,7 @@ Commit all necessary files.
 Before the deadline, [push a branch called 'submit-final'](https://www.cs.dartmouth.edu/~cs50/Labs/submit.html).
 
 We will grade the version of the code in the branch `submit-final` at the time of the deadline; if no such branch appears until later you will ***lose 10 points per hour after the deadline***.
-Read that carefully: 10 points *per hour*, not per day.
+Specifically, we take 10 points per hour, prorated by the minute, which means that you lose (10/60 x minutesPastDeadline) points off your total project grade.
 No extensions will be permitted.
 
 **What:** Your GitHub project shall include all necessary source and documentation files.
