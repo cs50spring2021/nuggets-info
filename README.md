@@ -50,6 +50,7 @@ As examples, see the design specs provided as part of the TSE.
 Commit a file `DESIGN.md` and any associated files.
 Your spec may include diagrams; be sure to commit them.
 Before the deadline, [push a branch called 'submit-design'](https://www.cs.dartmouth.edu/~cs50/Labs/submit.html).
+*Make sure your Markdown renders properly on GitHub!*
 
 ### Design review
 
@@ -76,7 +77,7 @@ As examples, see the implementation specs provided as part of the TSE.
 Commit a file `IMPLEMENTATION.md` and any associated files.
 Your spec may include diagrams; be sure to commit them.
 Before the deadline, [push a branch called 'submit-implementation'](https://www.cs.dartmouth.edu/~cs50/Labs/submit.html).
-
+*Make sure your Markdown renders properly on GitHub!*
 
 ### Final submission
 
