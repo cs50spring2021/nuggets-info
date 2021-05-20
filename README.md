@@ -289,6 +289,8 @@ They also provide an explicit counterpart to the `handleXYZ()` calls in the othe
 Although use of the logging module is optional, you will find it helpful.
 Insert calls to `log_x()` at critical points in your code, and you'll be able to study a logfile after (or during!) a particularly confusing or buggy run, to see what happened.
 
+[:arrow_forward: Video demo](https://dartmouth.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c5c70b23-d618-44bb-93f6-ad2e0159e0ed)
+
 ### Unit testing
 
 As I noted above, the [grid](#grid) is an incredibly important design and implementation choice.
@@ -326,7 +328,7 @@ The above `struct {...} game` approach counts as one variable.
 The core of our provided support library is the `message` module, provided in the `support` directory of the starter kit.
 It enables applications to send and receive network messages and also handle keyboard input, without dealing with gory details of sockets and without need for threads.
 
-:arrow_forward: [Video walk-through](https://dartmouth.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f8811bb1-0fec-4c05-8a46-ad2201693f7f).
+[:arrow_forward: Video walk-through](https://dartmouth.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f8811bb1-0fec-4c05-8a46-ad2201693f7f).
 
 ### nCurses
 
