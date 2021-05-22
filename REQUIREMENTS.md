@@ -251,7 +251,7 @@ Note these specs imply you cannot see down a passage, because passage spots are 
 
 [:arrow_forward: Video explanation](https://dartmouth.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=3cc64f9b-8aee-4250-ab58-ad3001076aeb)
 
-> One small mistake in the video: at the end I got `row--` and `row++` backward; note that row numbers count downward from the top of the screen.
+> Two small mistakes in the video: at the beginning I refer to the grid as having 9 columns and 6 rows, but it has 10 columns and 7 rows; at the end I got `row--` and `row++` backward; note that row numbers count downward from the top of the screen.
 
 Another example, from the Example map shown in the prior section.
 At game start we are in the big room with two gold piles in sight:
