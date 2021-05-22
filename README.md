@@ -303,6 +303,12 @@ Sure, I occasionally had to go back and extend my grid module with a new paramet
 
 Consider the same approach for any unit you develop.
 
+### Style
+
+Your implementation shall follow [CS50 style guidelines](https://www.cs.dartmouth.edu/~cs50/Labs/CodingStyle.html).
+As noted in under the [grading](#grading) heading, a substantial portion of your project grade rests on style.
+You may want to peruse this [list of the most common style-related comments applied to final projects in recent years](style.md).
+
 ### Global variables
 
 In the [unit](https://www.cs.dartmouth.edu/~cs50/Lectures/units/cohesion.html) about *cohesion* and *coupling*, we noted that global *variables* are a bad form of coupling.
