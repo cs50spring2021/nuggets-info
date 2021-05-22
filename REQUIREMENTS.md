@@ -178,7 +178,7 @@ A *map* defines the set of rooms and passages in which the game is played.
 * The grid is *NR* rows by *NC* columns; thus there are *NR x NC* *gridpoints*.
 * The grid will fit in a `DISPLAY` message; thus, *NR x NC + 10 < message_MaxBytes*.
 * The grid has enough spots to accommodate *MaxPlayers* players and `GoldMaxNumPiles` gold piles.
-* A *room* is a [simple rectilinear polygon](https://en.wikipedia.org/wiki/Rectilinear_polygon).
+* A *room* is an [axis-aligned rectilinear polygon](https://en.wikipedia.org/wiki/Rectilinear_polygon); it may have hole(s).
 * A *spot* is a gridpoint in the interior of a room or along a passage.
 * A room is defined by its *boundaries*.
 * A horizontal boundary always meets a vertical boundary at a corner boundary.
