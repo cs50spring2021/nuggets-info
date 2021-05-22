@@ -247,7 +247,13 @@ Considering each row between *pr* and *r* (exclusive), and each column between *
 Only if there are no such blocking pairs do we conclude that point *(r,c)* is visible.
 Note these specs imply you cannot see down a passage, because passage spots are not room spots; think of the rooms as well-lit and the passages as dark.
 
-Examples, from the above map.
+![hand-drawn diagram corresponding to video](images/visibility-drawing.png)
+
+[:arrow_forward: Video explanation](https://dartmouth.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=3cc64f9b-8aee-4250-ab58-ad3001076aeb)
+
+> One small mistake in the video: at the end I got `row--` and `row++` backward; note that row numbers count downward from the top of the screen.
+
+Another example, from the Example map shown in the prior section.
 At game start we are in the big room with two gold piles in sight:
 
 ```
