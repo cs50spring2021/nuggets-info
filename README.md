@@ -186,7 +186,7 @@ Consider:
 * Do these questions give you ideas about how to store game state?
 
 ```c
-char *grid = ...;   // a string variable
+char* grid = ...;   // a string variable
 puts(grid);         // produces the output below
 ```
 ```
@@ -355,7 +355,7 @@ I found it convenient to use `strncmp` and `strlen`, like this:
 
 ```c
   if (strncmp(message, "PLAY ", strlen("PLAY ")) == 0) {
-    const char *content = message + strlen("PLAY ");
+    const char* content = message + strlen("PLAY ");
     ... work with content...
   } else...
 ```
