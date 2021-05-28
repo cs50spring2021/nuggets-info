@@ -157,9 +157,9 @@ The player can type
  * `n` move diagonally down and right, if possible
 
 * where *possible* means the adjacent gridpoint in the given direction is an empty spot, a pile of gold, or another player.
-* for each move key, the corresponding Capitalized character will move *as far as possible* automatically and repeatedly in that direction, until it is no longer possible.
+* for each move key, the corresponding Capitalized character will move automatically and repeatedly in that direction, until it is no longer possible.
 
-The four movement keys are shown relative to the player (@) below.
+The eight movement keys are shown relative to the player (@) below.
 
 |     |     |     |
 |:---:|:---:|:---:|
@@ -185,7 +185,7 @@ A *map* defines the set of rooms and passages in which the game is played.
 * Thus, the *boundaries* of rooms are not spots, nor are gridpoints outside rooms and passages.
 * A *passage* is one-spot wide and connects rooms to other rooms and passages. Passages are rectilinear but may not be straight, that is, they may have 90-degree turns.
 * A passage interrupts a room's vertical or horizontal boundary; a passage never meets a room at a corner.
-* The map is one connected component; thus, one can reach any spot from any other spot by moving in some sequence of up,down,left,right.
+* The map is one connected component; thus, one can reach any spot from any other spot by some sequence of the eight valid moves.
 
 * Every gridpoint is one of these characters:
    * ` ` solid rock - interstitial space outside rooms
