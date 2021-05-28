@@ -364,6 +364,10 @@ See `man strncmp`; notice that the above compares only the first five characters
 Notice also that I include the space in that string, to ensure I'm catching the entire word, and not considering, for example, `"PLAYER"` to match `"PLAY"`.
 Notice also that it's easy to create a string pointer that points into the middle of the message, i.e., to the start of the content after `"PLAY "`.
 
+Some message types (`OK`,`GRID`, `GOLD`, `KEY`) include one or more arguments.
+I found it convenient to use `sscanf` to parse those, recalling that the format string provided to `sscanf` can include literal characters.
+For example, the format string `GRID %d %d` matches successfully only when the string begins with "GRID " and is followed by two integers.
+
 ### Random numbers
 
 See the [unit](https://www.cs.dartmouth.edu/~cs50/Lectures/units/random) about random numbers.
