@@ -355,7 +355,7 @@ I found it convenient to use `strncmp` and `strlen`, like this:
 
 ```c
   if (strncmp(message, "PLAY ", strlen("PLAY ")) == 0) {
-    char *content = message + strlen("PLAY ");
+    const char *content = message + strlen("PLAY ");
     ... work with content...
   } else...
 ```
