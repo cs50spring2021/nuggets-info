@@ -467,7 +467,7 @@ The server shall then respond with
 
 where `L` is this player's letter in the set {`A`, `B`, ... `Z`}.
 
-The server shall then immediately send `GRID` and `GOLD` messages as described below.
+The server shall then immediately send `GRID`, `GOLD`, and `DISPLAY` messages as described below.
 
 The client sends, at any time,
 
@@ -490,15 +490,14 @@ If there is already a spectator, this spectator takes its place
 (the server sends a `QUIT` message to the prior spectator, then forgets it).
 Thus, the server tracks only one spectator at a time.
 
-The server shall respond with a `GRID` message as described below.
+The server shall then immediately send `GRID`, `GOLD`, and `DISPLAY` messages as described below.
 
-The server shall then immediately send a `GOLD` message as described below.
+The server's `DISPLAY` includes a complete view, as if it *knows* all and *sees* all.
 
 The spectator is not assigned a letter and is not represented on the map.
 
 The only keystroke allowed for spectators is `'Q'` for quit.
 
-Subsequent `DISPLAY` messages will include a complete view, as if this client *knows* all and *sees* all.
 
 ### Server to clients
 
