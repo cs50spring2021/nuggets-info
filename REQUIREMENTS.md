@@ -492,7 +492,7 @@ Thus, the server tracks only one spectator at a time.
 
 The server shall then immediately send `GRID`, `GOLD`, and `DISPLAY` messages as described below.
 
-The server's `DISPLAY` includes a complete view, as if it *knows* all and *sees* all.
+The spectators's `DISPLAY` includes a complete view, as if it *knows* all and *sees* all.
 
 The spectator is not assigned a letter and is not represented on the map.
 
