@@ -198,7 +198,7 @@ A *map* defines the set of rooms and passages in which the game is played.
 
 ### Map files
 
-A *map file* is a text file with exactly *NC* lines and in which every line has exactly *NR* characters.
+A *map file* is a text file with exactly *NR* lines and in which every line has exactly *NC* characters.
 
 > Your solution may assume all map files are [valid](#valid-maps), but must infer *NR* and *NC* by reading the file.
 
