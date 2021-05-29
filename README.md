@@ -71,6 +71,7 @@ You do not need to describe the `support` library or, if you use it, `libcs50`.
 
 Recall the lecture unit about Design; it has a section about [Implementation specs](https://www.cs.dartmouth.edu/~cs50/Lectures/units/design.html#implementation-spec).
 Of those details, your implementation spec should describe all of your implementation's units (other than those we provide), provide pseudo code for each unit's functions (including prototypes and their parameters), and describe every major data structure.
+When describing data structures, we recommend pasting in a C-language `struct` declaration, with comments describing each member.
 As examples, see the implementation specs provided as part of the TSE.
 
 **How to submit:**
@@ -164,6 +165,12 @@ Furthermore, immediately after the project you will each complete a confidential
 ## Design hints
 
 Consider these thoughts while you develop your design spec.
+
+### Client/server
+
+**All game logic is handled in the server,** as noted in the spec.
+The client only provides a user interface; it has no role in tracking gold, determining visibility, handling moves, or even checking the validity of user's keystrokes.
+Indeed, the network protocol makes it impossible for the client to be anything other than pass keystrokes to the server and display the maps that come back.
 
 ### Grid
 
@@ -305,9 +312,15 @@ Consider the same approach for any unit you develop.
 
 ### Style
 
-Your implementation shall follow [CS50 style guidelines](https://www.cs.dartmouth.edu/~cs50/Labs/CodingStyle.html).
 As noted in under the [grading](#grading) heading, a substantial portion of your project grade rests on style.
-You may want to peruse this [list of the most common style-related comments applied to final projects in recent years](style.md).
+Some things to consider:
+
+* Follow [CS50 style guidelines](https://www.cs.dartmouth.edu/~cs50/Labs/CodingStyle.html), including naming conventions.
+* Use a consistent naming scheme: choose function and variable names that follow a consistent pattern, recalling the naming tips from a [recent unit](https://www.cs.dartmouth.edu/~cs50/Lectures/units/cohesion.html#routines).
+* Use consistent terminology across all specs and code comments: the Requirements Spec gives precise definitions for certain terms (like *gridpoint*, *player*, *purse*, *visible*, and more); use those terms rather than making up new terms, and use those terms consistent with their definitions.
+* Use a consistent coordinate system: the Requirement Spec refers to *rows* and *columns* of the grid and of the display; your two specs, and your implementation, should follow that lead. If you choose to refer to (x,y) instead of (col,row), do it consistently... do not mix the two notations, which leads to confusion.
+* Avoid sprinkling char literals throughout code: define some global named constants, e.g., `static const char roomSpot = '.';`  your code will be much more readable and maintainable!
+* Peruse this [list of the most common style-related comments applied to final projects in recent years](style.md).
 
 ### Global variables
 
@@ -337,6 +350,13 @@ It enables applications to send and receive network messages and also handle key
 
 [:arrow_forward: Video walk-through](https://dartmouth.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f8811bb1-0fec-4c05-8a46-ad2201693f7f).
 
+> Note: the Requirements Spec makes no mention of timeouts, either in the client or in the server, so neither your client nor server should be implementing a `handleTimeout` function.
+>
+> Note: the *message* module provides an opaque type `addr_t` to represent the network address of a correspondent.
+> This address is not an "IP address" or a "hostname"; it is not a string or an int.
+> You should just refer to it as an "address".
+> (TL;DR: it is actually an encoded form of the combination of IP address and port number, both of which are required to send and receive messages.)
+
 ### nCurses
 
 The client shall use the *ncurses* library to arrange its interactive display; see the [unit about ncurses](https://www.cs.dartmouth.edu/~cs50/Lectures/units/ncurses).
@@ -345,7 +365,7 @@ Note:
 * ncurses has ["still reachable" memory leaks](https://invisible-island.net/ncurses/ncurses.faq.html#config_leaks); ignore them.
 * if the user starts with a window too small for the grid size, your client shall prompt the user to increase the window to a size big enough for the grid - repeatedly if necessary.
 * if the user later shrinks the window too small for the grid, your client need not discover this change nor deal with it.
-
+* while it is unlikely for `getch()` to return the `EOF` character, it can; as noted in the spec, you should handle it as if the user hit `Q`, and then exit the message loop.
 
 ### Parsing messages
 
@@ -478,6 +498,7 @@ We installed four programs in the shared directory `~/cs50-dev/shared/nuggets/`:
 
 * `player` - our player.
 * `server` - our server (which goes beyond spec to validate mapfile).
+* `miniclient` - a tiny client that can send messages to your server.
 * `padmap` - a tool to pad all lines of a mapfile so they have the same length.
 * `checkmap` - a tool to validate whether a mapfile is 'valid'.
 
@@ -486,6 +507,7 @@ You can run them directly by giving their pathname; for example,
 ```bash
 ~/cs50-dev/shared/nuggets/linux/server ...
 ~/cs50-dev/shared/nuggets/linux/player ...
+~/cs50-dev/shared/nuggets/linux/miniclient ...
 ~/cs50-dev/shared/nuggets/linux/checkmap maps/main.txt
 ~/cs50-dev/shared/nuggets/linux/padmap maps/draft.txt > maps/new.txt
 ```
